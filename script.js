@@ -36,24 +36,19 @@ function displayPhotos() {
   photosArray.forEach((photo) => {
     // Create <a> to link to Unsplash
     const item = document.createElement("a");
-    // item.setAttribute("href", photo.links.html);
-    // item.setAttribute("target", "_blank");
     setAttributes(item, {
       href: photo.links.html,
       target: "_blank",
     });
     // create img for photo
     const img = document.createElement("img");
-    // img.setAttribute("src", photo.urls.regular);
-    // img.setAttribute("alt", photo.alt_description);
-    // img.setAttribute("title", photo.alt_description);
     setAttributes(img, {
       src: photo.urls.regular,
       alt: photo.alt_description,
       title: photo.alt_description,
     });
     //  Event listener, check when each is finished loading
-    imageContainer.addEventListener("load", imageLoaded);
+    img.addEventListener("load", imageLoaded);
 
     // Put img inside a, then put both inside imageContainer element
     item.appendChild(img);
@@ -66,7 +61,6 @@ async function getPhotos() {
   try {
     const response = await fetch(apiUrl);
     photosArray = await response.json();
-
     displayPhotos();
   } catch (error) {
     //  Catch error here
@@ -81,6 +75,7 @@ window.addEventListener("scroll", () => {
     ready
   ) {
     ready = false;
+    getPhotos();
   }
 });
 // on load
